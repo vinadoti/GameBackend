@@ -28,6 +28,22 @@ namespace GameBackend.Controllers // Namespace do projeto
             return Created(game.GameId.ToString(), game); // Retorna o valor do atributo gameId - Resposta do método HTTP POST (201) - Created
         }
 
+        [HttpPut] // Define que o método Put é um método HTTP PUT
+        [Route("{id}")] // Define o endereco para acessar o método Put
+        public ActionResult Update(Guid id, Game game) // Método Put
+        {
+            foreach (Game g in lista) // Percorre a lista de objetos da classe Game
+            {
+                if (g.GameId == id) // Verifica se o valor do atributo gameId do objeto g é igual ao valor do atributo id
+                {
+                    g.Name = game.Name; // Define o valor do atributo name
+                    g.Status = game.Status; // Define o valor do atributo status
+                    return Ok(); // Retorna mensagem de sucesso - Resposta do método HTTP PUT (200) - OK
+                }
+            }
+            return NotFound(); // Retorna mensagem de erro - Resposta do método HTTP PUT (404) - Not Found
+        }
+
         [HttpDelete] // Define que o método Delete é um método HTTP DELETE
         [Route("{id}")] // Define o endereco para acessar o método Delete
         public ActionResult Delete(Guid id) // Método Delete
